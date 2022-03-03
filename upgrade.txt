@@ -1,0 +1,20 @@
+///////////////////////////////////////
+///    OpenCart V3.0.x TO 3.0.3.6     ///
+///      Upgrade Instructions       ///
+///     https://www.opencart.com     ///
+///////////////////////////////////////
+
+NOTE: THIS IS FOR UPGRADE ON EXISTING INSTALLS ONLY!
+
+##########################################
+THIS IS FOR UPGRADING EXISTING OPENCART 3.0.x STORES ONLY
+##########################################
+
+1. BACKUP YOUR EXISTING STORE FILES AND DATABASE!!
+ 
+2. Download this version of OpenCart and upload ALL new files on top of your current install.
+https://github.com/condor2/Opencart_3036/archive/master.zip
+
+3. Browse to http://<yourstore.com>/install Replacing <yourstore.com> with your actual site (and subdirectory if applicable).
+ 
+4. Because in 3.0.3.6 TWIG engine was moved to storage folder you need to move all storage content from 3.0.3.6 to your storage folder path defined in config.php.
