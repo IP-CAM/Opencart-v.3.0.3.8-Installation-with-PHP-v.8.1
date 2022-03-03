@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'f5a5c4329bc6f65f50f30b30ad5e23b3b539be2f',
+    'reference' => 'dc5744b4876914860782cfa1f160f69aa52ddc57',
     'name' => 'opencart/opencart',
   ),
   'versions' => 
@@ -81,7 +81,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'f5a5c4329bc6f65f50f30b30ad5e23b3b539be2f',
+      'reference' => 'dc5744b4876914860782cfa1f160f69aa52ddc57',
     ),
     'psr/http-message' => 
     array (
@@ -110,21 +110,21 @@
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.10.0',
-      'version' => '1.10.0.0',
+      'pretty_version' => 'v1.10.2',
+      'version' => '1.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9699a52a862da4efb43985943afa17150155dd3d',
+      'reference' => '387f4f4abf5d99f16be16314c5ab856f81c82f46',
     ),
     'symfony/deprecation-contracts' => 
     array (
-      'pretty_version' => 'v2.5.0',
-      'version' => '2.5.0.0',
+      'pretty_version' => 'v3.0.0',
+      'version' => '3.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6f981ee24cf69ee7ce9736146d1c57c2780598a8',
+      'reference' => 'c726b64c1ccfe2896cb7df2e1331c357ad1c8ced',
     ),
     'symfony/polyfill-ctype' => 
     array (
@@ -200,21 +200,21 @@
     ),
     'symfony/translation-contracts' => 
     array (
-      'pretty_version' => 'v2.5.0',
-      'version' => '2.5.0.0',
+      'pretty_version' => 'v3.0.0',
+      'version' => '3.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd28150f0f44ce854e942b671fc2620a98aae1b1e',
+      'reference' => '1b6ea5a7442af5a12dba3dbd6d71034b5b234e77',
     ),
     'symfony/validator' => 
     array (
-      'pretty_version' => 'v5.4.3',
-      'version' => '5.4.3.0',
+      'pretty_version' => 'v5.4.5',
+      'version' => '5.4.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b420894e98f414b9ad5d4494650bf281f6dd6028',
+      'reference' => '06c3d849fa19a0ece7b6eed240036772c4b5faaf',
     ),
     'twig/twig' => 
     array (
