@@ -92,7 +92,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 		$order_id = $this->session->data['order_id'];
 
-		$order_ref = $order_id . 'T' . strftime("%Y%m%d%H%M%S") . mt_rand(1, 999);
+		$order_ref = $order_id . 'T' . date("YmdHis") . mt_rand(1, 999);
 
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 
@@ -300,7 +300,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 					$message = $this->language->get('error_3d_unsuccessful');
 					$message .= '<br /><strong>' . $this->language->get('text_eci') . ':</strong> (' . $eci . ') ' . $this->language->get('text_3d_s' . (int)$eci_ref);
-					$message .= '<br /><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . (string)strftime("%Y%m%d%H%M%S");
+					$message .= '<br /><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . (string)date("YmdHis");
 					$message .= '<br /><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$md['order_ref'];
 
 					if ($this->config->get('payment_realex_remote_card_data_status') == 1) {
