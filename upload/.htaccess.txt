@@ -11,10 +11,13 @@ Options -Indexes
 
 # Prevent Direct Access to files
 <FilesMatch "(?i)((\.tpl|\.twig|\.ini|\.log|(?<!robots)\.txt))">
- Require all denied
-## For apache 2.2 and older, replace "Require all denied" with these two lines :
-# Order deny,allow
-# Deny from all
+ <IfModule mod_authz_core.c>
+  Require all denied
+ </IfModule>
+ <IfModule !mod_authz_core.c>
+  Order Deny,Allow
+  Deny from all
+ </IfModule>
 </FilesMatch>
 
 # SEO URL Settings
