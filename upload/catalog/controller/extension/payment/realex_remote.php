@@ -42,7 +42,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text'  => strftime('%B', mktime(0, 0, 0, $i, 1, 2000)),
+				'text'  => sprintf('%02d', $i),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -53,8 +53,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text'  => strftime('%Y', mktime(0, 0, 0, 1, 1, $i)),
-				'value' => strftime('%y', mktime(0, 0, 0, 1, 1, $i))
+				'text'  => sprintf('%02d', $i % 100),
+				'value' => sprintf('%04d', $i)
 			);
 		}
 
