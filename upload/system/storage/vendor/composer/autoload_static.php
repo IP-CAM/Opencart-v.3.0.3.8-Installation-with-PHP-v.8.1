@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit00e6d221a25c68a92d477e13ad43f76a
+class ComposerStaticInit30b411f48799388aa35aa2c5e432026c
 {
     public static $files = array (
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
@@ -164,6 +164,7 @@ class ComposerStaticInit00e6d221a25c68a92d477e13ad43f76a
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
@@ -173,10 +174,10 @@ class ComposerStaticInit00e6d221a25c68a92d477e13ad43f76a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit00e6d221a25c68a92d477e13ad43f76a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit00e6d221a25c68a92d477e13ad43f76a::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit00e6d221a25c68a92d477e13ad43f76a::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit00e6d221a25c68a92d477e13ad43f76a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit30b411f48799388aa35aa2c5e432026c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit30b411f48799388aa35aa2c5e432026c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit30b411f48799388aa35aa2c5e432026c::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit30b411f48799388aa35aa2c5e432026c::$classMap;
 
         }, null, ClassLoader::class);
     }
