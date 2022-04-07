@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "braintree/braintree_php",
-            "version": "6.7.0",
+            "version": "6.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/braintree/braintree_php.git",
-                "reference": "3406aa331c3eb5ac38aecb135389897dd50f35a1"
+                "reference": "d5d92080d67ed247b72378e4f47e8c4d0048bddd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/3406aa331c3eb5ac38aecb135389897dd50f35a1",
-                "reference": "3406aa331c3eb5ac38aecb135389897dd50f35a1",
+                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/d5d92080d67ed247b72378e4f47e8c4d0048bddd",
+                "reference": "d5d92080d67ed247b72378e4f47e8c4d0048bddd",
                 "shasum": ""
             },
             "require": {
@@ -51,9 +51,9 @@
             "description": "Braintree PHP Client Library",
             "support": {
                 "issues": "https://github.com/braintree/braintree_php/issues",
-                "source": "https://github.com/braintree/braintree_php/tree/6.7.0"
+                "source": "https://github.com/braintree/braintree_php/tree/6.8.0"
             },
-            "time": "2022-02-23T22:28:07+00:00"
+            "time": "2022-04-01T18:37:18+00:00"
         },
         {
             "name": "cardinity/cardinity-sdk-php",
@@ -356,16 +356,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.8.3",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "1afdd860a2566ed3c2b0b4a3de6e23434a79ec85"
+                "reference": "337e3ad8e5716c15f9657bd214d16cc5e69df268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/1afdd860a2566ed3c2b0b4a3de6e23434a79ec85",
-                "reference": "1afdd860a2566ed3c2b0b4a3de6e23434a79ec85",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/337e3ad8e5716c15f9657bd214d16cc5e69df268",
+                "reference": "337e3ad8e5716c15f9657bd214d16cc5e69df268",
                 "shasum": ""
             },
             "require": {
@@ -446,7 +446,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/1.8.3"
+                "source": "https://github.com/guzzle/psr7/tree/1.8.5"
             },
             "funding": [
                 {
@@ -462,7 +462,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-05T13:56:00+00:00"
+            "time": "2022-03-20T21:51:18+00:00"
         },
         {
             "name": "psr/http-message",
@@ -637,16 +637,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "c726b64c1ccfe2896cb7df2e1331c357ad1c8ced"
+                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/c726b64c1ccfe2896cb7df2e1331c357ad1c8ced",
-                "reference": "c726b64c1ccfe2896cb7df2e1331c357ad1c8ced",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
+                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
                 "shasum": ""
             },
             "require": {
@@ -684,7 +684,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.1"
             },
             "funding": [
                 {
@@ -700,7 +700,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-01T23:48:49+00:00"
+            "time": "2022-01-02T09:55:41+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1357,16 +1357,16 @@
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "1b6ea5a7442af5a12dba3dbd6d71034b5b234e77"
+                "reference": "c4183fc3ef0f0510893cbeedc7718fb5cafc9ac9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/1b6ea5a7442af5a12dba3dbd6d71034b5b234e77",
-                "reference": "1b6ea5a7442af5a12dba3dbd6d71034b5b234e77",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/c4183fc3ef0f0510893cbeedc7718fb5cafc9ac9",
+                "reference": "c4183fc3ef0f0510893cbeedc7718fb5cafc9ac9",
                 "shasum": ""
             },
             "require": {
@@ -1415,7 +1415,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v3.0.0"
+                "source": "https://github.com/symfony/translation-contracts/tree/v3.0.1"
             },
             "funding": [
                 {
@@ -1431,20 +1431,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-07T12:43:40+00:00"
+            "time": "2022-01-02T09:55:41+00:00"
         },
         {
             "name": "symfony/validator",
-            "version": "v5.4.5",
+            "version": "v5.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "06c3d849fa19a0ece7b6eed240036772c4b5faaf"
+                "reference": "f6402ff65e23b7a701d6938809c6451a8a125a8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/06c3d849fa19a0ece7b6eed240036772c4b5faaf",
-                "reference": "06c3d849fa19a0ece7b6eed240036772c4b5faaf",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/f6402ff65e23b7a701d6938809c6451a8a125a8b",
+                "reference": "f6402ff65e23b7a701d6938809c6451a8a125a8b",
                 "shasum": ""
             },
             "require": {
@@ -1528,7 +1528,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v5.4.5"
+                "source": "https://github.com/symfony/validator/tree/v5.4.7"
             },
             "funding": [
                 {
@@ -1544,20 +1544,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-25T08:05:40+00:00"
+            "time": "2022-03-31T17:09:19+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v3.3.8",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "972d8604a92b7054828b539f2febb0211dd5945c"
+                "reference": "8442df056c51b706793adf80a9fd363406dd3674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/972d8604a92b7054828b539f2febb0211dd5945c",
-                "reference": "972d8604a92b7054828b539f2febb0211dd5945c",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8442df056c51b706793adf80a9fd363406dd3674",
+                "reference": "8442df056c51b706793adf80a9fd363406dd3674",
                 "shasum": ""
             },
             "require": {
@@ -1608,7 +1608,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.3.8"
+                "source": "https://github.com/twigphp/Twig/tree/v3.3.10"
             },
             "funding": [
                 {
@@ -1620,7 +1620,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-04T06:59:48+00:00"
+            "time": "2022-04-06T06:47:41+00:00"
         },
         {
             "name": "zoujingli/wechat-php-sdk",
