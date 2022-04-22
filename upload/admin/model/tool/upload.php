@@ -24,10 +24,10 @@ class ModelToolUpload extends Model {
 		return $query->row;
 	}
 
-	public function getUploads($data = array()) {
+	public function getUploads($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "upload`";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -45,11 +45,11 @@ class ModelToolUpload extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'`name`',
 			'`filename`',
 			'`date_added`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -83,7 +83,7 @@ class ModelToolUpload extends Model {
 	public function getTotalUploads() {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -103,6 +103,6 @@ class ModelToolUpload extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

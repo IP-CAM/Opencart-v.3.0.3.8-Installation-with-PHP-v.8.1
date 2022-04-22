@@ -1,7 +1,7 @@
 <?php
 class ControllerMailGdpr extends Controller {
 	// admin/model/customer/gdpr/editStatus
-	public function index(&$route, &$args, &$output) {
+	public function index(string &$route, array &$args, mixed &$output): void {
 		$this->load->model('customer/gdpr');
 
 		$gdpr_info = $this->model_customer_gdpr->getGdpr($args[0]);
@@ -31,7 +31,7 @@ class ControllerMailGdpr extends Controller {
 		}
 	}
 
-	public function export($gdpr_info) {
+	public function export(array $gdpr_info): void {
 		$this->load->model('setting/store');
 		$this->load->language('mail/gdpr_export');
 
@@ -77,13 +77,13 @@ class ControllerMailGdpr extends Controller {
 		}
 
 		// Addresses
-		$data['addresses'] = array();
+		$data['addresses'] = [];
 
 		if ($customer_info) {
 			$results = $this->model_customer_customer->getAddresses($customer_info['customer_id']);
 
 			foreach ($results as $result) {
-				$address = array(
+				$address = [
 					'firstname' => $result['firstname'],
 					'lastname'  => $result['lastname'],
 					'address_1' => $result['address_1'],
@@ -92,7 +92,7 @@ class ControllerMailGdpr extends Controller {
 					'postcode'  => $result['postcode'],
 					'country'   => $result['country'],
 					'zone'      => $result['zone']
-				);
+				];
 
 				if (!in_array($address, $data['addresses'])) {
 					$data['addresses'][] = $address;
@@ -108,7 +108,7 @@ class ControllerMailGdpr extends Controller {
 		foreach ($results as $result) {
 			$order_info = $this->model_sale_order->getOrder($result['order_id']);
 
-			$address = array(
+			$address = [
 				'firstname' => $order_info['payment_firstname'],
 				'lastname'  => $order_info['payment_lastname'],
 				'address_1' => $order_info['payment_address_1'],
@@ -117,13 +117,13 @@ class ControllerMailGdpr extends Controller {
 				'postcode'  => $order_info['payment_postcode'],
 				'country'   => $order_info['payment_country'],
 				'zone'      => $order_info['payment_zone']
-			);
+			];
 
 			if (!in_array($address, $data['addresses'])) {
 				$data['addresses'][] = $address;
 			}
 
-			$address = array(
+			$address = [
 				'firstname' => $order_info['shipping_firstname'],
 				'lastname'  => $order_info['shipping_lastname'],
 				'address_1' => $order_info['shipping_address_1'],
@@ -132,7 +132,7 @@ class ControllerMailGdpr extends Controller {
 				'postcode'  => $order_info['shipping_postcode'],
 				'country'   => $order_info['shipping_country'],
 				'zone'      => $order_info['shipping_zone']
-			);
+			];
 
 			if (!in_array($address, $data['addresses'])) {
 				$data['addresses'][] = $address;
@@ -140,16 +140,16 @@ class ControllerMailGdpr extends Controller {
 		}
 
 		// Ip's
-		$data['ips'] = array();
+		$data['ips'] = [];
 
 		if ($customer_info) {
 			$results = $this->model_customer_customer->getIps($customer_info['customer_id']);
 
 			foreach ($results as $result) {
-				$data['ips'][] = array(
+				$data['ips'][] = [
 					'ip'         => $result['ip'],
 					'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
-				);
+				];
 			}
 		}
 

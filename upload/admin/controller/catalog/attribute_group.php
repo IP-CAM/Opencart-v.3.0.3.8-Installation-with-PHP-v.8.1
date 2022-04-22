@@ -1,8 +1,8 @@
 <?php
 class ControllerCatalogAttributeGroup extends Controller {
-	protected $error = array();
+	private array $error = [];
 
-	public function index() {
+		public function index(): void {
 		$this->load->language('catalog/attribute_group');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('catalog/attribute_group');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -44,7 +44,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$this->getForm();
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('catalog/attribute_group');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -76,7 +76,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('catalog/attribute_group');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -110,7 +110,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$this->getList();
 	}
 
-	protected function getList() {
+	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -143,41 +143,41 @@ class ControllerCatalogAttributeGroup extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/attribute_group', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['add'] = $this->url->link('catalog/attribute_group/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('catalog/attribute_group/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['attribute_groups'] = array();
+		$data['attribute_groups'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$attribute_group_total = $this->model_catalog_attribute_group->getTotalAttributeGroups();
 
 		$results = $this->model_catalog_attribute_group->getAttributeGroups($filter_data);
 
 		foreach ($results as $result) {
-			$data['attribute_groups'][] = array(
+			$data['attribute_groups'][] = [
 				'attribute_group_id' => $result['attribute_group_id'],
 				'name'               => $result['name'],
 				'sort_order'         => $result['sort_order'],
 				'edit'               => $this->url->link('catalog/attribute_group/edit', 'user_token=' . $this->session->data['user_token'] . '&attribute_group_id=' . $result['attribute_group_id'] . $url, true)
-			);
+			];
 		}
 
 		if (isset($this->error['warning'])) {
@@ -197,7 +197,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -245,7 +245,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$this->response->setOutput($this->load->view('catalog/attribute_group_list', $data));
 	}
 
-	protected function getForm() {
+	protected function getForm(): void {
 		$data['text_form'] = (!isset($this->request->get['attribute_group_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
@@ -257,7 +257,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		if (isset($this->error['name'])) {
 			$data['error_name'] = $this->error['name'];
 		} else {
-			$data['error_name'] = array();
+			$data['error_name'] = [];
 		}
 
 		$url = '';
@@ -274,17 +274,17 @@ class ControllerCatalogAttributeGroup extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/attribute_group', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		if (!isset($this->request->get['attribute_group_id'])) {
 			$data['action'] = $this->url->link('catalog/attribute_group/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -307,7 +307,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		} elseif (!empty($attribute_group_info)) {
 			$data['attribute_group_description'] = $this->model_catalog_attribute_group->getAttributeGroupDescriptions($this->request->get['attribute_group_id']);
 		} else {
-			$data['attribute_group_description'] = array();
+			$data['attribute_group_description'] = [];
 		}
 
 		if (isset($this->request->post['sort_order'])) {
@@ -325,7 +325,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$this->response->setOutput($this->load->view('catalog/attribute_group_form', $data));
 	}
 
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/attribute_group')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -343,7 +343,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/attribute_group')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

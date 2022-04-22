@@ -1,8 +1,8 @@
 <?php
 class ControllerLocalisationWeightClass extends Controller {
-	protected $error = array();
+	private array $error = [];
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('localisation/weight_class');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('localisation/weight_class');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -44,7 +44,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		$this->getForm();
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('localisation/weight_class');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -76,7 +76,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('localisation/weight_class');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -110,7 +110,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		$this->getList();
 	}
 
-	protected function getList() {
+	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -143,42 +143,42 @@ class ControllerLocalisationWeightClass extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['add'] = $this->url->link('localisation/weight_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/weight_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['weight_classes'] = array();
+		$data['weight_classes'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$weight_class_total = $this->model_localisation_weight_class->getTotalWeightClasses();
 
 		$results = $this->model_localisation_weight_class->getWeightClasses($filter_data);
 
 		foreach ($results as $result) {
-			$data['weight_classes'][] = array(
+			$data['weight_classes'][] = [
 				'weight_class_id' => $result['weight_class_id'],
 				'title'           => $result['title'] . (($result['weight_class_id'] == $this->config->get('config_weight_class_id')) ? $this->language->get('text_default') : null),
 				'unit'            => $result['unit'],
 				'value'           => $result['value'],
 				'edit'            => $this->url->link('localisation/weight_class/edit', 'user_token=' . $this->session->data['user_token'] . '&weight_class_id=' . $result['weight_class_id'] . $url, true)
-			);
+			];
 		}
 
 		if (isset($this->error['warning'])) {
@@ -198,7 +198,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -259,13 +259,13 @@ class ControllerLocalisationWeightClass extends Controller {
 		if (isset($this->error['title'])) {
 			$data['error_title'] = $this->error['title'];
 		} else {
-			$data['error_title'] = array();
+			$data['error_title'] = [];
 		}
 
 		if (isset($this->error['unit'])) {
 			$data['error_unit'] = $this->error['unit'];
 		} else {
-			$data['error_unit'] = array();
+			$data['error_unit'] = [];
 		}
 
 		$url = '';
@@ -282,17 +282,17 @@ class ControllerLocalisationWeightClass extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		if (!isset($this->request->get['weight_class_id'])) {
 			$data['action'] = $this->url->link('localisation/weight_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -315,7 +315,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		} elseif (isset($this->request->get['weight_class_id'])) {
 			$data['weight_class_description'] = $this->model_localisation_weight_class->getWeightClassDescriptions($this->request->get['weight_class_id']);
 		} else {
-			$data['weight_class_description'] = array();
+			$data['weight_class_description'] = [];
 		}
 
 		if (isset($this->request->post['value'])) {
@@ -333,7 +333,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		$this->response->setOutput($this->load->view('localisation/weight_class_form', $data));
 	}
 
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/weight_class')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -351,7 +351,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/weight_class')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

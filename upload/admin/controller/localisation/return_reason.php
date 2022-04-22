@@ -1,8 +1,8 @@
 <?php
 class ControllerLocalisationReturnReason extends Controller {
-	protected $error = array();
+	private array $error = [];
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('localisation/return_reason');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('localisation/return_reason');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -44,7 +44,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		$this->getForm();
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('localisation/return_reason');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -76,7 +76,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('localisation/return_reason');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -110,7 +110,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		$this->getList();
 	}
 
-	protected function getList() {
+	protected function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -143,40 +143,40 @@ class ControllerLocalisationReturnReason extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/return_reason', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['add'] = $this->url->link('localisation/return_reason/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('localisation/return_reason/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['return_reasons'] = array();
+		$data['return_reasons'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$return_reason_total = $this->model_localisation_return_reason->getTotalReturnReasons();
 
 		$results = $this->model_localisation_return_reason->getReturnReasons($filter_data);
 
 		foreach ($results as $result) {
-			$data['return_reasons'][] = array(
+			$data['return_reasons'][] = [
 				'return_reason_id' => $result['return_reason_id'],
 				'name'             => $result['name'],
 				'edit'             => $this->url->link('localisation/return_reason/edit', 'user_token=' . $this->session->data['user_token'] . '&return_reason_id=' . $result['return_reason_id'] . $url, true)
-			);
+			];
 		}
 
 		if (isset($this->error['warning'])) {
@@ -196,7 +196,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -243,7 +243,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		$this->response->setOutput($this->load->view('localisation/return_reason_list', $data));
 	}
 
-	protected function getForm() {
+	protected function getForm(): void {
 		$data['text_form'] = (!isset($this->request->get['return_reason_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
@@ -255,7 +255,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		if (isset($this->error['name'])) {
 			$data['error_name'] = $this->error['name'];
 		} else {
-			$data['error_name'] = array();
+			$data['error_name'] = [];
 		}
 
 		$url = '';
@@ -272,17 +272,17 @@ class ControllerLocalisationReturnReason extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('localisation/return_reason', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		if (!isset($this->request->get['return_reason_id'])) {
 			$data['action'] = $this->url->link('localisation/return_reason/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -301,7 +301,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		} elseif (isset($this->request->get['return_reason_id'])) {
 			$data['return_reason'] = $this->model_localisation_return_reason->getReturnReasonDescriptions($this->request->get['return_reason_id']);
 		} else {
-			$data['return_reason'] = array();
+			$data['return_reason'] = [];
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -311,7 +311,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		$this->response->setOutput($this->load->view('localisation/return_reason_form', $data));
 	}
 
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/return_reason')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -325,7 +325,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'localisation/return_reason')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

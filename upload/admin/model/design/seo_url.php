@@ -1,27 +1,27 @@
 <?php
 class ModelDesignSeoUrl extends Model {
-	public function addSeoUrl($data) {
+	public function addSeoUrl(array $data): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$data['store_id'] . "', `language_id` = '" . (int)$data['language_id'] . "', `query` = '" . $this->db->escape(html_entity_decode((string)$data['query'], ENT_QUOTES, 'UTF-8')) . "', `keyword` = '" . $this->db->escape((string)$data['keyword']) . "'");
 	}
 
-	public function editSeoUrl($seo_url_id, $data) {
+	public function editSeoUrl(int $seo_url_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$data['store_id'] . "', `language_id` = '" . (int)$data['language_id'] . "', `query` = '" . $this->db->escape(html_entity_decode((string)$data['query'], ENT_QUOTES, 'UTF-8')) . "', `keyword` = '" . $this->db->escape((string)$data['keyword']) . "' WHERE `seo_url_id` = '" . (int)$seo_url_id . "'");
 	}
 
-	public function deleteSeoUrl($seo_url_id) {
+	public function deleteSeoUrl(int $seo_url_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE `seo_url_id` = '" . (int)$seo_url_id . "'");
 	}
 	
-	public function getSeoUrl($seo_url_id) {
+	public function getSeoUrl(int $seo_url_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `seo_url_id` = '" . (int)$seo_url_id . "'");
 
 		return $query->row;
 	}
 
-	public function getSeoUrls($data = array()) {
+	public function getSeoUrls(array $data = []): array {
 		$sql = "SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "store` s WHERE s.`store_id` = su.`store_id`) AS `store`, (SELECT `name` FROM `" . DB_PREFIX . "language` l WHERE l.`language_id` = su.`language_id`) AS `language` FROM `" . DB_PREFIX . "seo_url` su";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_query'])) {
 			$implode[] = "`query` LIKE '" . $this->db->escape((string)$data['filter_query']) . "'";
@@ -43,12 +43,12 @@ class ModelDesignSeoUrl extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}	
 
-		$sort_data = array(
+		$sort_data = [
 			'`query`',
 			'`keyword`',
 			'`store_id`',
 			'`language_id`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -79,10 +79,10 @@ class ModelDesignSeoUrl extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalSeoUrls($data = array()) {
+	public function getTotalSeoUrls(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "seo_url`";
 		
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_query'])) {
 			$implode[] = "`query` LIKE '" . $this->db->escape((string)$data['filter_query']) . "'";
@@ -106,18 +106,18 @@ class ModelDesignSeoUrl extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
-	public function getSeoUrlsByKeyword($keyword) {
+	public function getSeoUrlsByKeyword(string $keyword): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `keyword` = '" . $this->db->escape($keyword) . "'");
 
-		return $query->rows;
+		return $query->row;
 	}
 
-	public function getSeoUrlsByQuery($query) {
+	public function getSeoUrlsByQuery(string $query): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = '" . $this->db->escape($query) . "'");
 
-		return $query->rows;
+		return $query->row;
 	}
 }

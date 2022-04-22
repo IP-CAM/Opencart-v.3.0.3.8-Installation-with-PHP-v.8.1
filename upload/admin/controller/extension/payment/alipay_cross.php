@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentAlipayCross extends Controller {
-	protected $error = array();
-	private $currencies = array('GBP', 'HKD', 'USD', 'CHF', 'SGD', 'SEK', 'DKK', 'NOK', 'JPY', 'CAD', 'AUD', 'EUR', 'NZD', 'KRW', 'THB');
+	private array $error = [];
+	private $currencies = ['GBP', 'HKD', 'USD', 'CHF', 'SGD', 'SEK', 'DKK', 'NOK', 'JPY', 'CAD', 'AUD', 'EUR', 'NZD', 'KRW', 'THB'];
 
 	public function index() {
 		$this->load->language('extension/payment/alipay_cross');
@@ -36,22 +36,22 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 			$data['error_merchant_private_key'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_extension'),
 			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('extension/payment/alipay_cross', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['action'] = $this->url->link('extension/payment/alipay_cross', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -78,13 +78,13 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$this->load->model('localisation/currency');
 
 		$currencies = $this->model_localisation_currency->getCurrencies();
-		$data['currencies'] = array();
+		$data['currencies'] = [];
 		foreach ($currencies as $currency) {
 			if (in_array($currency['code'], $this->currencies)) {
-				$data['currencies'][] = array(
+				$data['currencies'][] = [
 					'code'   => $currency['code'],
 					'title'  => $currency['title']
-				);
+				];
 			}
 		}
 

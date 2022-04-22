@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonDeveloper extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('common/developer');
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -19,7 +19,7 @@ class ControllerCommonDeveloper extends Controller {
 		} else {
 			$this->load->model('setting/setting');
 
-			$this->model_setting_setting->editSetting('developer', array('developer_theme' => 1), 0);
+			$this->model_setting_setting->editSetting('developer', ['developer_theme' => 1], 0);
 
 			$data['eval'] = false;
 		}
@@ -27,10 +27,10 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->setOutput($this->load->view('common/developer', $data));
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('common/developer');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -46,10 +46,10 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function theme() {
+	public function theme(): void {
 		$this->load->language('common/developer');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');
@@ -79,10 +79,10 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function sass() {
+	public function sass(): void {
 		$this->load->language('common/developer');
 
-		$json = array();
+		$json = [];
 
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');

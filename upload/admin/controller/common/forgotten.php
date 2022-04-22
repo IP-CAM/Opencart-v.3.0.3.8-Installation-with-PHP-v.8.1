@@ -1,8 +1,8 @@
 <?php
 class ControllerCommonForgotten extends Controller {
-	protected $error = array();
+	private array $error = [];
 
-	public function index() {
+	public function index(): void {
 		if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
 			$this->response->redirect($this->url->link('common/dashboard', '', true));
 		}
@@ -31,17 +31,17 @@ class ControllerCommonForgotten extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', '', true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('common/forgotten', 'user_token=' . '', true)
-		);
+		];
 
 		$data['action'] = $this->url->link('common/forgotten', '', true);
 
@@ -59,13 +59,11 @@ class ControllerCommonForgotten extends Controller {
 		$this->response->setOutput($this->load->view('common/forgotten', $data));
 	}
 
-	protected function validate() {
+	protected function validate(): bool {
 		if ((!isset($this->request->post['email'])) || (utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->error['warning'] = $this->language->get('error_email');
-		} else {
-			if (!$this->model_user_user->getTotalUsersByEmail($this->request->post['email'])) {
+		} elseif (!$this->model_user_user->getTotalUsersByEmail($this->request->post['email'])) {
 			$this->error['warning'] = $this->language->get('error_email');
-			}
 		}
 
 		return !$this->error;

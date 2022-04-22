@@ -1,48 +1,48 @@
 <?php
 class ModelLocalisationCountry extends Model {
-	public function addCountry($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `iso_code_2` = '" . $this->db->escape((string)$data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape((string)$data['iso_code_3']) . "', `address_format` = '" . $this->db->escape((string)$data['address_format']) . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (int)$data['status'] . "'");
+	public function addCountry(array $data): int {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `iso_code_2` = '" . $this->db->escape((string)$data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape((string)$data['iso_code_3']) . "', `address_format` = '" . $this->db->escape((string)$data['address_format']) . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "'");
 
 		$this->cache->delete('country');
 
 		return $this->db->getLastId();
 	}
 
-	public function editCountry($country_id, $data) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `iso_code_2` = '" . $this->db->escape((string)$data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape((string)$data['iso_code_3']) . "', `address_format` = '" . $this->db->escape((string)$data['address_format']) . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (int)$data['status'] . "' WHERE `country_id` = '" . (int)$country_id . "'");
+	public function editCountry(int $country_id, array $data): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape((string)$data['name']) . "', `iso_code_2` = '" . $this->db->escape((string)$data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape((string)$data['iso_code_3']) . "', `address_format` = '" . $this->db->escape((string)$data['address_format']) . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "' WHERE `country_id` = '" . (int)$country_id . "'");
 
 		$this->cache->delete('country');
 	}
 
-	public function deleteCountry($country_id) {
+	public function deleteCountry(int $country_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$country_id . "'");
 
 		$this->cache->delete('country');
 	}
 
-	public function enableCountry($country_id) {
+	public function enableCountry(int $country_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `status` = '1' WHERE `country_id` = '" . (int)$country_id . "'");
 
 		$this->cache->delete('country');
 	}
 
-	public function disableCountry($country_id) {
+	public function disableCountry(int $country_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `status` = '0' WHERE `country_id` = '" . (int)$country_id . "'");
 
 		$this->cache->delete('country');
 	}
 
-	public function getCountry($country_id) {
+	public function getCountry(int $country_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$country_id . "'");
 
 		return $query->row;
 	}
 
-	public function getCountries($data = array()) {
+	public function getCountries(array $data = []): array {
 		if ($data) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "country`";
 
-			$implode = array();
+			$implode = [];
 
 			if (!empty($data['filter_name'])) {
 				$implode[] = "`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -60,11 +60,11 @@ class ModelLocalisationCountry extends Model {
 				$sql .= " WHERE " . implode(" AND ", $implode);
 			}
 
-			$sort_data = array(
+			$sort_data = [
 				'`name`',
 				'`iso_code_2`',
 				'`iso_code_3`'
-			);
+			];
 
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 				$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -108,10 +108,10 @@ class ModelLocalisationCountry extends Model {
 		}
 	}
 
-	public function getTotalCountries($data = array()) {
+	public function getTotalCountries(array $data = []): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country`";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -131,6 +131,6 @@ class ModelLocalisationCountry extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

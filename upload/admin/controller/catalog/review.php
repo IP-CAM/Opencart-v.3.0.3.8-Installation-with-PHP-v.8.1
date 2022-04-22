@@ -1,8 +1,8 @@
 <?php
 class ControllerCatalogReview extends Controller {
-	protected $error = array();
+	private array $error = [];
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('catalog/review');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerCatalogReview extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('catalog/review');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -60,7 +60,7 @@ class ControllerCatalogReview extends Controller {
 		$this->getForm();
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('catalog/review');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -108,7 +108,7 @@ class ControllerCatalogReview extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('catalog/review');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -158,7 +158,7 @@ class ControllerCatalogReview extends Controller {
 		$this->getList();
 	}
 
-	protected function getList() {
+	protected function getList(): void {
 		if (isset($this->request->get['filter_product'])) {
 			$filter_product = $this->request->get['filter_product'];
 		} else {
@@ -231,24 +231,24 @@ class ControllerCatalogReview extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['add'] = $this->url->link('catalog/review/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('catalog/review/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['reviews'] = array();
+		$data['reviews'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'filter_product'    => $filter_product,
 			'filter_author'     => $filter_author,
 			'filter_status'     => $filter_status,
@@ -257,14 +257,14 @@ class ControllerCatalogReview extends Controller {
 			'order'             => $order,
 			'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit'             => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$review_total = $this->model_catalog_review->getTotalReviews($filter_data);
 
 		$results = $this->model_catalog_review->getReviews($filter_data);
 
 		foreach ($results as $result) {
-			$data['reviews'][] = array(
+			$data['reviews'][] = [
 				'review_id'  => $result['review_id'],
 				'name'       => $result['name'],
 				'author'     => $result['author'],
@@ -272,7 +272,7 @@ class ControllerCatalogReview extends Controller {
 				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'edit'       => $this->url->link('catalog/review/edit', 'user_token=' . $this->session->data['user_token'] . '&review_id=' . $result['review_id'] . $url, true)
-			);
+			];
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -294,7 +294,7 @@ class ControllerCatalogReview extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -382,7 +382,7 @@ class ControllerCatalogReview extends Controller {
 		$this->response->setOutput($this->load->view('catalog/review_list', $data));
 	}
 
-	protected function getForm() {
+	protected function getForm(): void {
 		$data['text_form'] = (!isset($this->request->get['review_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		if (isset($this->error['warning'])) {
@@ -445,17 +445,17 @@ class ControllerCatalogReview extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		if (!isset($this->request->get['review_id'])) {
 			$data['action'] = $this->url->link('catalog/review/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -536,7 +536,7 @@ class ControllerCatalogReview extends Controller {
 		$this->response->setOutput($this->load->view('catalog/review_form', $data));
 	}
 
-	protected function validateForm() {
+	protected function validateForm(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/review')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -564,7 +564,7 @@ class ControllerCatalogReview extends Controller {
 		return !$this->error;
 	}
 
-	protected function validateDelete() {
+	protected function validateDelete(): bool {
 		if (!$this->user->hasPermission('modify', 'catalog/review')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

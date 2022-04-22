@@ -1,6 +1,6 @@
 <?php
 class ControllerEventLanguage extends Controller {
-	public function index(&$route, &$args) {
+	public function index(string &$route, array &$args): void {
 		foreach ($this->language->all() as $key => $value) {
 			if (!isset($args[$key])) {
 				$args[$key] = $value;
@@ -9,7 +9,7 @@ class ControllerEventLanguage extends Controller {
 	}
 
 	// 1. Before controller load store all current loaded language data
-	public function before(&$route, &$output) {
+	public function before(&$route, &$args) {
 		$this->language->set('backup', $this->language->all());
 	}
 

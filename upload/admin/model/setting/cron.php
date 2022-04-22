@@ -31,17 +31,17 @@ class ModelSettingCron extends Model {
 		return $query->row;
 	}
 
-	public function getCrons($data = array()) {
+	public function getCrons($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "cron`";
 
-		$sort_data = array(
+		$sort_data = [
 			'`code`',
 			'`cycle`',
 			'`action`',
 			'`status`',
 			'`date_added`',
 			'`date_modified`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -75,6 +75,6 @@ class ModelSettingCron extends Model {
 	public function getTotalCrons() {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cron`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

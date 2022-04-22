@@ -1,8 +1,8 @@
 <?php
 class ControllerReportStatistics extends Controller {
-	protected $error = array();
+	private array $error = [];
 	
-	public function index() {
+	public function index(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function ordersale() {
+	public function ordersale(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -32,7 +32,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function orderprocessing() {
+	public function orderprocessing(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -52,7 +52,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}
 
-	public function ordercomplete() {
+	public function ordercomplete(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -72,7 +72,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function orderother() {
+	public function orderother(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -82,7 +82,7 @@ class ControllerReportStatistics extends Controller {
 		if ($this->validate()) {
 			$this->load->model('localisation/order_status');
 
-			$order_status_data = array();
+			$order_status_data = [];
 
 			$results = $this->model_localisation_order_status->getOrderStatuses();
 
@@ -104,7 +104,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function return() {
+	public function return(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -124,7 +124,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function customer() {
+	public function customer(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));	
@@ -144,7 +144,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function affiliate() {
+	public function affiliate(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -164,7 +164,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function product() {
+	public function product(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -184,7 +184,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function review() {
+	public function review(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -204,31 +204,31 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 
-	public function getList() {
-		$data['breadcrumbs'] = array();
+	public function getList(): void {
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['statistics'] = array();
+		$data['statistics'] = [];
 
 		$this->load->model('report/statistics');
 
 		$results = $this->model_report_statistics->getStatistics();
 
 		foreach ($results as $result) {
-			$data['statistics'][] = array(
+			$data['statistics'][] = [
 				'name'  => $this->language->get('text_' . $result['code']),
 				'value' => $result['value'],
 				'href'  => $this->url->link('report/statistics/' . str_replace('_', '', $result['code']), 'user_token=' . $this->session->data['user_token'], true)
-			);
+			];
 		}
 
 		if (isset($this->error['warning'])) {
@@ -252,7 +252,7 @@ class ControllerReportStatistics extends Controller {
 		$this->response->setOutput($this->load->view('report/statistics', $data));
 	}
 
-	protected function validate() {
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'report/statistics')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

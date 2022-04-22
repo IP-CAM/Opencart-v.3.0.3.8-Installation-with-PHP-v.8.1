@@ -1,8 +1,8 @@
 <?php
 class ControllerCommonLogin extends Controller {
-	protected $error = array();
+	private array $error = [];
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('common/login');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -84,7 +84,7 @@ class ControllerCommonLogin extends Controller {
 		$this->response->setOutput($this->load->view('common/login', $data));
 	}
 
-	protected function validate() {
+	protected function validate(): bool {
 		if (!isset($this->request->post['username']) || !isset($this->request->post['password']) || !$this->request->post['username'] || !$this->request->post['password']) {
 			$this->error['warning'] = $this->language->get('error_login');
 		} else {

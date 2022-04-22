@@ -50,14 +50,14 @@ class ModelUserUser extends Model {
 		return $query->row;
 	}
 
-	public function getUsers($data = array()) {
+	public function getUsers($data = []) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "user`";
 
-		$sort_data = array(
+		$sort_data = [
 			'`username`',
 			'`status`',
 			'`date_added`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -91,19 +91,19 @@ class ModelUserUser extends Model {
 	public function getTotalUsers() {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalUsersByGroupId($user_group_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user` WHERE `user_group_id` = '" . (int)$user_group_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalUsersByEmail($email) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function addLoginAttempt($username) {

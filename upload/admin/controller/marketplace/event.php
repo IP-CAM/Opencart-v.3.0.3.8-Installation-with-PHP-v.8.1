@@ -1,8 +1,8 @@
 <?php
 class ControllerMarketplaceEvent extends Controller {
-	private $error = array();
+	private array $error = [];
 	
-	public function index() {
+	public function index(): void {
 		$this->load->language('marketplace/event');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->getList();
 	}
 
-	public function enable() {
+	public function enable(): void {
 		$this->load->language('marketplace/event');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -44,7 +44,7 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->getList();
 	}
 
-	public function disable() {
+	public function disable(): void {
 		$this->load->language('marketplace/event');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -76,7 +76,7 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->getList();
 	}
 	
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('marketplace/event');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -110,7 +110,7 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->getList();
 	}	
 	
-	public function getList() {
+	public function getList(): void {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -143,35 +143,35 @@ class ControllerMarketplaceEvent extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('marketplace/event', 'user_token=' . $this->session->data['user_token'] . $url, true)
-		);
+		];
 
 		$data['delete'] = $this->url->link('marketplace/event/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['events'] = array();
+		$data['events'] = [];
 
-		$filter_data = array(
+		$filter_data = [
 			'sort'  => $sort,
 			'order' => $order,
 			'start' => ($page - 1) * $this->config->get('config_limit_admin'),
 			'limit' => $this->config->get('config_limit_admin')
-		);
+		];
 
 		$event_total = $this->model_setting_event->getTotalEvents();
 
 		$results = $this->model_setting_event->getEvents($filter_data);
 
 		foreach ($results as $result) {
-			$data['events'][] = array(
+			$data['events'][] = [
 				'event_id'   => $result['event_id'],
 				'code'       => $result['code'],
 				'trigger'    => $result['trigger'],
@@ -181,8 +181,10 @@ class ControllerMarketplaceEvent extends Controller {
 				'enable'     => $this->url->link('marketplace/event/enable', 'user_token=' . $this->session->data['user_token'] . '&event_id=' . $result['event_id'] . $url, true),
 				'disable'    => $this->url->link('marketplace/event/disable', 'user_token=' . $this->session->data['user_token'] . '&event_id=' . $result['event_id'] . $url, true),
 				'enabled'    => $result['status']
-			);
+			];
 		}
+
+		$data['user_token'] = $this->session->data['user_token'];
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -201,7 +203,7 @@ class ControllerMarketplaceEvent extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -250,7 +252,7 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/event', $data));
 	}
 
-	protected function validate() {
+	protected function validate(): bool {
 		if (!$this->user->hasPermission('modify', 'marketplace/event')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonHeader extends Controller {
-	public function index() {
+	public function index(): string {
 		if (is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
 			$this->document->addLink(HTTP_CATALOG . 'image/' . $this->config->get('config_icon'), 'icon');
 		}
@@ -52,22 +52,22 @@ class ControllerCommonHeader extends Controller {
 			}
 
 			// Online Stores
-			$data['stores'] = array();
+			$data['stores'] = [];
 
-			$data['stores'][] = array(
+			$data['stores'][] = [
 				'name' => $this->config->get('config_name'),
 				'href' => HTTP_CATALOG
-			);
+			];
 
 			$this->load->model('setting/store');
 
 			$results = $this->model_setting_store->getStores();
 
 			foreach ($results as $result) {
-				$data['stores'][] = array(
+				$data['stores'][] = [
 					'name' => $result['name'],
 					'href' => $result['url']
-				);
+				];
 			}
 		}
 

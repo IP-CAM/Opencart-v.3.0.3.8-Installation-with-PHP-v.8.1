@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionExtensionTheme extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('extension/extension/theme');
@@ -79,7 +79,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 
 		$stores = $this->model_setting_store->getStores();
 
-		$data['extensions'] = array();
+		$data['extensions'] = [];
 		
 		// Compatibility code for old extension folders
 		$files = glob(DIR_APPLICATION . 'controller/extension/theme/*.php');
@@ -91,29 +91,29 @@ class ControllerExtensionExtensionTheme extends Controller {
 				if ($this->user->hasPermission('access', 'extension/theme/' . $extension)) {
 					$this->load->language('extension/theme/' . $extension, 'extension');
 
-					$store_data = array();
+					$store_data = [];
 
-					$store_data[] = array(
+					$store_data[] = [
 						'name'   => $this->config->get('config_name'),
 						'edit'   => $this->url->link('extension/theme/' . $extension, 'user_token=' . $this->session->data['user_token'] . '&store_id=0', true),
 						'status' => $this->config->get('theme_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled')
-					);
+					];
 
 					foreach ($stores as $store) {
-						$store_data[] = array(
+						$store_data[] = [
 							'name'   => $store['name'],
 							'edit'   => $this->url->link('extension/theme/' . $extension, 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $store['store_id'], true),
 							'status' => $this->model_setting_setting->getSettingValue('theme_' . $extension . '_status', $store['store_id']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled')
-						);
+						];
 					}
 
-					$data['extensions'][] = array(
+					$data['extensions'][] = [
 						'name'      => $this->language->get('extension')->get('heading_title'),
 						'install'   => $this->url->link('extension/extension/theme/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
 						'uninstall' => $this->url->link('extension/extension/theme/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
 						'installed' => in_array($extension, $extensions),
 						'store'     => $store_data
-					);
+					];
 				}
 			}
 		}

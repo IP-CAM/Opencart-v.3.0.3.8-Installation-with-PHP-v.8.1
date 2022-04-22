@@ -1,6 +1,6 @@
 <?php
 class ControllerCronGdpr extends Controller {
-	public function index($cron_id, $code, $cycle, $date_added, $date_modified) {
+	public function index(int $cron_id, string $code, string $cycle, string $date_added, string $date_modified): void {
 		$this->load->model('customer/gdpr');
 		$this->load->model('customer/customer');
 

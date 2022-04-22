@@ -21,10 +21,10 @@ class ModelSaleReturn extends Model {
 		return $query->row;
 	}
 
-	public function getReturns($data = array()) {
+	public function getReturns($data = []) {
 		$sql = "SELECT *, CONCAT(r.`firstname`, ' ', r.`lastname`) AS `customer`, (SELECT rs.`name` FROM `" . DB_PREFIX . "return_status` rs WHERE rs.`return_status_id` = r.`return_status_id` AND rs.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` r";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_return_id'])) {
 			$implode[] = "r.`return_id` = '" . (int)$data['filter_return_id'] . "'";
@@ -62,7 +62,7 @@ class ModelSaleReturn extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'r.`return_id`',
 			'r.`order_id`',
 			'`customer`',
@@ -71,7 +71,7 @@ class ModelSaleReturn extends Model {
 			'`return_status`',
 			'r.`date_added`',
 			'r.`date_modified`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -102,10 +102,10 @@ class ModelSaleReturn extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalReturns($data = array()) {
+	public function getTotalReturns($data = []) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` r";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_return_id'])) {
 			$implode[] = "r.`return_id` = '" . (int)$data['filter_return_id'] . "'";
@@ -145,25 +145,25 @@ class ModelSaleReturn extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnsByReturnStatusId($return_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnsByReturnReasonId($return_reason_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_reason_id` = '" . (int)$return_reason_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnsByReturnActionId($return_action_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 	
 	public function addReturnHistory($return_id, $return_status_id, $comment, $notify) {
@@ -188,12 +188,12 @@ class ModelSaleReturn extends Model {
 	public function getTotalReturnHistories($return_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_history` WHERE `return_id` = '" . (int)$return_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnHistoriesByReturnStatusId($return_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_history` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

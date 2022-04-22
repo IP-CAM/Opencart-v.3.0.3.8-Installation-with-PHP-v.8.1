@@ -147,11 +147,11 @@ class ModelSaleOrder extends Model {
 		}
 	}
 
-	public function getOrders($data = array()) {
+	public function getOrders($data = []) {
 		$sql = "SELECT o.`order_id`, CONCAT(o.`firstname`, ' ', o.`lastname`) AS `customer`, (SELECT os.`name` FROM `" . DB_PREFIX . "order_status` os WHERE os.`order_status_id` = o.`order_status_id` AND os.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `order_status`, o.`store_name`,  o.`shipping_code`, o.`total`, o.`currency_code`, o.`currency_value`, o.`date_added`, o.`date_modified` FROM `" . DB_PREFIX . "order` o";
 
 		if (!empty($data['filter_order_status'])) {
-			$implode = array();
+			$implode = [];
 
 			$order_statuses = explode(',', $data['filter_order_status']);
 
@@ -200,7 +200,7 @@ class ModelSaleOrder extends Model {
 			$sql .= " AND o.`total` = '" . (float)$data['filter_total'] . "'";
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'o.`order_id`',
 			'o.`store_name`',
 			'`customer`',
@@ -208,7 +208,7 @@ class ModelSaleOrder extends Model {
 			'o.`date_added`',
 			'o.`date_modified`',
 			'o.`total`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -269,11 +269,11 @@ class ModelSaleOrder extends Model {
 		return $query->rows;
 	}
 	
-	public function getTotalOrders($data = array()) {
+	public function getTotalOrders($data = []) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order`";
 
 		if (!empty($data['filter_order_status'])) {
-			$implode = array();
+			$implode = [];
 
 			$order_statuses = explode(',', $data['filter_order_status']);
 
@@ -324,23 +324,23 @@ class ModelSaleOrder extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrdersByStoreId($store_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `store_id` = '" . (int)$store_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrdersByOrderStatusId($order_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `order_status_id` > '0'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrdersByProcessingStatus() {
-		$implode = array();
+		$implode = [];
 
 		$order_statuses = $this->config->get('config_processing_status');
 
@@ -351,14 +351,14 @@ class ModelSaleOrder extends Model {
 		if ($implode) {
 			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode));
 
-			return $query->row['total'];
+			return (int)$query->row['total'];
 		} else {
 			return 0;
 		}
 	}
 
 	public function getTotalOrdersByCompleteStatus() {
-		$implode = array();
+		$implode = [];
 
 		$order_statuses = $this->config->get('config_complete_status');
 
@@ -369,7 +369,7 @@ class ModelSaleOrder extends Model {
 		if ($implode) {
 			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode) . "");
 
-			return $query->row['total'];
+			return (int)$query->row['total'];
 		} else {
 			return 0;
 		}
@@ -378,20 +378,20 @@ class ModelSaleOrder extends Model {
 	public function getTotalOrdersByLanguageId($language_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `language_id` = '" . (int)$language_id . "' AND `order_status_id` > '0'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrdersByCurrencyId($currency_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE `currency_id` = '" . (int)$currency_id . "' AND `order_status_id` > '0'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
-	public function getTotalSales($data = array()) {
+	public function getTotalSales($data = []) {
 		$sql = "SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order`";
 
 		if (!empty($data['filter_order_status'])) {
-			$implode = array();
+			$implode = [];
 
 			$order_statuses = explode(',', $data['filter_order_status']);
 
@@ -442,7 +442,7 @@ class ModelSaleOrder extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function createInvoiceNo($order_id) {
@@ -480,17 +480,17 @@ class ModelSaleOrder extends Model {
 	public function getTotalOrderHistories($order_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_history` WHERE `order_id` = '" . (int)$order_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrderHistoriesByOrderStatusId($order_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_history` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getEmailsByProductsOrdered($products, $start, $end) {
-		$implode = array();
+		$implode = [];
 
 		foreach ($products as $product_id) {
 			$implode[] = "op.`product_id` = '" . (int)$product_id . "'";
@@ -502,7 +502,7 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getTotalEmailsByProductsOrdered($products) {
-		$implode = array();
+		$implode = [];
 
 		foreach ($products as $product_id) {
 			$implode[] = "op.`product_id` = '" . (int)$product_id . "'";
@@ -510,6 +510,6 @@ class ModelSaleOrder extends Model {
 
 		$query = $this->db->query("SELECT COUNT(DISTINCT o.`email`) AS `total` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_product` op ON (o.`order_id` = op.`order_id`) WHERE (" . implode(" OR ", $implode) . ") AND o.`order_status_id` <> '0'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

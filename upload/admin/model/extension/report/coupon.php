@@ -1,9 +1,9 @@
 <?php
 class ModelExtensionReportCoupon extends Model {
-	public function getCoupons($data = array()) {
+	public function getCoupons($data = []) {
 		$sql = "SELECT ch.coupon_id, c.name, c.code, COUNT(DISTINCT ch.order_id) AS `orders`, SUM(ch.amount) AS total FROM `" . DB_PREFIX . "coupon_history` ch LEFT JOIN `" . DB_PREFIX . "coupon` c ON (ch.coupon_id = c.coupon_id)";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_date_start'])) {
 			$implode[] = "DATE(ch.date_added) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
@@ -36,10 +36,10 @@ class ModelExtensionReportCoupon extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalCoupons($data = array()) {
+	public function getTotalCoupons($data = []) {
 		$sql = "SELECT COUNT(DISTINCT coupon_id) AS total FROM `" . DB_PREFIX . "coupon_history`";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_date_start'])) {
 			$implode[] = "DATE(date_added) >= DATE('" . $this->db->escape($data['filter_date_start']) . "')";
@@ -55,6 +55,6 @@ class ModelExtensionReportCoupon extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

@@ -26,10 +26,10 @@ class ModelLocalisationZone extends Model {
 		return $query->row;
 	}
 
-	public function getZones($data = array()) {
+	public function getZones($data = []) {
 		$sql = "SELECT *, z.`name`, c.`name` AS `country` FROM `" . DB_PREFIX . "zone` z LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "z.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -47,11 +47,11 @@ class ModelLocalisationZone extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
-		$sort_data = array(
+		$sort_data = [
 			'c.`name`',
 			'z.`name`',
 			'z.`code`'
-		);
+		];
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY `" . $data['sort'] . "`";
@@ -96,14 +96,14 @@ class ModelLocalisationZone extends Model {
 		return $zone_data;
 	}
 
-	public function getTotalZones($data = array()) {
+	public function getTotalZones($data = []) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` z";
 
 		if (!empty($data['filter_country'])) {
 			$sql .= " LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
 		}
 
-		$implode = array();
+		$implode = [];
 
 		if (!empty($data['filter_name'])) {
 			$implode[] = "z.`name` LIKE '" . $this->db->escape((string)$data['filter_name']) . "%'";
@@ -123,12 +123,12 @@ class ModelLocalisationZone extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalZonesByCountryId($country_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

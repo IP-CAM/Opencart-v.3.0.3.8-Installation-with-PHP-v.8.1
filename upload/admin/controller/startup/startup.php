@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupStartup extends Controller {
-	public function index() {
+	public function index(): void {
 		// Settings
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "setting WHERE store_id = '0'");
 
@@ -45,13 +45,13 @@ class ControllerStartupStartup extends Controller {
 		$expire = (int)$this->config->get('config_session_expire');
 
 		// Require higher security for session cookies
-		$option = array(
+		$option = [
 			'expires'  => $this->config->get('config_session_expire') ? time() + (int)$this->config->get('config_session_expire') : 0,
 			'path'     => !empty($_SERVER['PHP_SELF']) ? $path : '',
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
 			'SameSite' => $this->config->get('session_samesite')
-		);
+		];
 
 		setcookie($this->config->get('session_name'), $session->getId(), $option);
 

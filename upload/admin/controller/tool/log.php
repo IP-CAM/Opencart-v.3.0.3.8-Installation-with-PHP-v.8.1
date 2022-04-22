@@ -1,8 +1,8 @@
 <?php
 class ControllerToolLog extends Controller {
-	protected $error = array();
+	private array $error = [];
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('tool/log');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -25,17 +25,17 @@ class ControllerToolLog extends Controller {
 			$data['success'] = '';
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
-		$data['breadcrumbs'][] = array(
+		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('tool/log', 'user_token=' . $this->session->data['user_token'], true)
-		);
+		];
 
 		$data['download'] = $this->url->link('tool/log/download', 'user_token=' . $this->session->data['user_token'], true);
 		$data['clear'] = $this->url->link('tool/log/clear', 'user_token=' . $this->session->data['user_token'], true);
@@ -48,7 +48,7 @@ class ControllerToolLog extends Controller {
 			$size = filesize($file);
 
 			if ($size >= 3145728) {
-				$suffix = array(
+				$suffix = [
 					'B',
 					'KB',
 					'MB',
@@ -58,7 +58,7 @@ class ControllerToolLog extends Controller {
 					'EB',
 					'ZB',
 					'YB'
-				);
+				];
 
 				$i = 0;
 
@@ -84,12 +84,12 @@ class ControllerToolLog extends Controller {
 		$this->response->setOutput($this->load->view('tool/log', $data));
 	}
 
-	public function download() {
+	public function download(): void {
 		$this->load->language('tool/log');
 
 		$file = DIR_LOGS . $this->config->get('config_error_filename');
 
-		if (is_file($file) && filesize($file) > 0) {
+		if (!is_file($file)) {
 			$this->response->addheader('Pragma: public');
 			$this->response->addheader('Expires: 0');
 			$this->response->addheader('Content-Description: File Transfer');
@@ -105,7 +105,7 @@ class ControllerToolLog extends Controller {
 		}
 	}
 	
-	public function clear() {
+	public function clear(): void {
 		$this->load->language('tool/log');
 
 		if (!$this->user->hasPermission('modify', 'tool/log')) {

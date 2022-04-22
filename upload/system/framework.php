@@ -88,6 +88,10 @@ $loader = new Loader($registry);
 $registry->set('load', $loader);
 
 // Request
+$request = new Request();
+$registry->set('request', $request);
+
+// Response
 $response = new Response();
 $response->addHeader('Content-Type: text/html; charset=utf-8');
 $response->addHeader('Expires: Thu, 19 Nov 1981 08:52:00 GMT');
