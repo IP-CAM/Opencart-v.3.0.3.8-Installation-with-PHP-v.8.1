@@ -9,7 +9,7 @@ class ControllerEventLanguage extends Controller {
 	}
 
 	// 1. Before controller load store all current loaded language data
-	public function before(&$route, &$args) {
+	public function before(&$route, &$output) {
 		$this->language->set('backup', $this->language->all());
 	}
 
